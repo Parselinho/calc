@@ -1,0 +1,86 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: rgb(82, 73, 63);
+}
+
+html {
+  overflow-x: hidden;
+}
+
+.calcContainer {
+  display: grid;
+  justify-content: center;
+  justify-items: stretch;
+  align-content: center;
+  grid-template-columns: repeat(4, minmax(65px, auto));
+  grid-gap: 10px;
+  grid-template-rows: repeat(6, auto);
+  height: 100vh;
+}
+
+button {
+  height: 50px;
+}
+
+.number {
+  background-color: lightblue;
+  transition: box-shadow 0.2 ease-out;
+  border: none;
+}
+
+.number:hover,
+.number:focus {
+  background-color: rgba(173, 216, 230, 0.753);
+  box-shadow: 5px 5px 3px black;
+}
+
+button:not(.number) {
+  background-color: rgb(206, 164, 86);
+  transition: box-shadow 0.2 ease-out;
+  border: none;
+}
+
+button:not(.number):hover,
+button:not(.number):focus {
+  background-color: rgba(206, 164, 86, 0.76);
+  box-shadow: 5px 5px 3px black;
+}
+
+.calcScreen {
+  position: relative;
+  background-color: lightcyan;
+  grid-column: 1/5;
+  height: 5rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 5px;
+}
+
+.up {
+  position: absolute;
+  margin-top: 5px;
+  top: 0;
+}
+
+.pageContainer::before {
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  opacity: 0.5;
+  z-index: -1;
+  background-image: url("/circle.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
