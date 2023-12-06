@@ -14,7 +14,7 @@ let isOperatorClicked = false;
 let firstNumberArr = [];
 let secondNumberArr = [];
 let numberOfClick = [];
-let currentOperator, displayResult;
+let currentOperator, displayResult, combineFirstNumbers, combineSecondNumbers;
 
 numbersButtons.forEach((numberBtn) => {
   numberBtn.addEventListener("click", (e) => {
@@ -31,11 +31,6 @@ numbersButtons.forEach((numberBtn) => {
       secondNumberArr.push(buttonNumber);
       combineSecondNumbers = secondNumberArr.join("");
       secondNumberToDisplay.textContent = combineSecondNumbers;
-      if (firstNumberArr.length === 0) {
-        firstNumberArr.push("0");
-        combineFirstNumbers = "0";
-        firstNumberToDisplay.textContent = combineFirstNumbers;
-      }
     } else {
       firstNumberArr.push(buttonNumber);
       combineFirstNumbers = firstNumberArr.join("");
@@ -49,7 +44,16 @@ operatorsButtons.forEach((operator) => {
     currentOperator = e.target.textContent;
     operatorScreen.textContent = currentOperator;
     isOperatorClicked = true;
-    if (numberOfClick.length > 0 && topCalcScreen.classList.contains("up")) {
+    if (firstNumberArr.length === 0 && currentOperator !== "√") {
+      firstNumberArr.push("0");
+      combineFirstNumbers = "0";
+      firstNumberToDisplay.textContent = combineFirstNumbers;
+    }
+    if (
+      numberOfClick.length > 0 &&
+      topCalcScreen.classList.contains("up") &&
+      currentOperator !== "√"
+    ) {
       firstNumberToDisplay.textContent = displayResult;
       secondNumberArr.textContent = combineSecondNumbers;
     }
@@ -78,9 +82,15 @@ acButton.addEventListener("click", () => {
   topCalcScreen.className = "";
 });
 
+function root(a) {
+  return Math.sqrt(a);
+}
+
 function showResults(operation) {
   let numberOne = parseFloat(combineFirstNumbers);
+  console.log(combineFirstNumbers);
   let numberTwo = parseFloat(combineSecondNumbers);
+  console.log(combineSecondNumbers);
   switch (operation) {
     case "+":
       displayResult = numberOne + numberTwo;
@@ -97,14 +107,38 @@ function showResults(operation) {
     case "%":
       displayResult = numberOne % numberTwo;
       break;
-    case "pow":
+    case "^":
       displayResult = Math.pow(numberOne, numberTwo);
       break;
-    case "sqrt":
-      displayResult = Math.sqrt(numberOne * numberOne + numberTwo * numberTwo);
+    case "√":
+      displayResult = root(numberTwo);
       break;
   }
   numberOfClick.push(operation);
   results.innerHTML = displayResult;
   topCalcScreen.className = "up";
 }
+
+document.addEventListener("keydown", (e) => {
+  // Handling number and operator keys
+  numbersButtons.forEach((button) => {
+    if (button.textContent === e.key) {
+      button.click();
+    }
+  });
+
+  operatorsButtons.forEach((button) => {
+    if (button.textContent === e.key) {
+      button.click();
+    }
+  });
+
+  // Handling special keys
+  if (e.key === "Enter" || e.key === "=") {
+    equal.click();
+  }
+
+  if (e.key === "Escape" || e.key === "Backspace") {
+    acButton.click();
+  }
+});
