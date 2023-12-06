@@ -79,7 +79,7 @@ button:not(.number):focus {
   position: absolute;
   opacity: 0.5;
   z-index: -1;
-  background-image: url("/circle.png");
+  background-image: url("./circle.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
