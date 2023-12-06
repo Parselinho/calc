@@ -118,3 +118,29 @@ function showResults(operation) {
   results.innerHTML = displayResult;
   topCalcScreen.className = "up";
 }
+
+document.addEventListener("keydown", (e) => {
+  // Handling number and operator keys
+  numbersButtons.forEach((button) => {
+    if (button.textContent === e.key) {
+      button.click();
+    }
+  });
+
+  operatorsButtons.forEach((button) => {
+    if (button.textContent === e.key) {
+      button.click();
+    }
+  });
+
+  // Handling special keys
+  if (e.key === "Enter" || e.key === "=") {
+    equal.click();
+  }
+
+  if (e.key === "Escape" || e.key === "Backspace") {
+    acButton.click();
+  }
+
+  // Add more special cases as needed
+});
