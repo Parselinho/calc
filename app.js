@@ -141,6 +141,4 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" || e.key === "Backspace") {
     acButton.click();
   }
-
-  // Add more special cases as needed
 });
